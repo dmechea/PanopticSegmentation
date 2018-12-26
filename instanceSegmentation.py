@@ -27,3 +27,21 @@ if not os.path.exists(COCO_MODEL_PATH):
 
 config = coco.CocoConfig()
 # config.display()
+
+COCO_DATA_DIR = os.path.abspath("./data/coco")
+COCO_ANNOTATIONS_PATH = os.path.abspath("./data/coco/val2017/annotations/instances_val2017.json")
+
+dataset = coco.CocoDataset()
+dataset.load_coco(COCO_DATA_DIR, "val", "2017")
+dataset.prepare()
+
+model = modellib.MaskRCNN(mode="inference", config=config, model_dir=MODEL_DIR )
+model.load_weights(COCO_MODEL_PATH, by_name=True)
+
+# Need to pass in annotation file
+valCocoLib = COCO(annotation_file=COCO_ANNOTATIONS_PATH)
+
+cocoFormatResults = coco.evaluate_coco(model, dataset, valCocoLib, eval_type="segm", limit=10)
+
+with open('data.json', 'w') as outfile:
+    json.dump(cocoFormatResults, outfile)
