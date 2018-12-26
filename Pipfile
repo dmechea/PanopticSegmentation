@@ -12,6 +12,8 @@ keras = "*"
 imgaug = "*"
 opencv-python = "*"
 cython = "*"
+pycocotools = {editable = true, subdirectory = "PythonAPI", git = "https://github.com/dmechea/cocoapi.git"}
+mrcnn = {editable = true, git = "https://github.com/dmechea/Mask_RCNN.git"}
 
 [dev-packages]
 
