@@ -43,5 +43,5 @@ valCocoLib = COCO(annotation_file=COCO_ANNOTATIONS_PATH)
 
 cocoFormatResults = coco.evaluate_coco(model, dataset, valCocoLib, eval_type="segm", limit=10)
 
-with open('data.json', 'w') as outfile:
-    json.dump(cocoFormatResults, outfile)
+# with open('data.json', 'w') as outfile:
+    # json.dump(cocoFormatResults, outfile)

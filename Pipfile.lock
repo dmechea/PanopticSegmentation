@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "f325704bbcff613b8262c1a3b6c17bcf0834609e9a09a9378905e861add943b3"
+            "sha256": "46b44644613abd6acf5d60e1b4873dbc52d5468ef0c94ef2f824abc283c46649"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -264,11 +264,6 @@
             ],
             "version": "==3.0.2"
         },
-        "mrcnn": {
-            "editable": true,
-            "git": "https://github.com/dmechea/Mask_RCNN.git",
-            "ref": "e8c145189c554b172286f80cb502cdeb2e4bf591"
-        },
         "networkx": {
             "hashes": [
                 "sha256:45e56f7ab6fe81652fb4bc9f44faddb0e9025f469f602df14e3b2551c2ea5c8b"
@@ -401,7 +396,7 @@
         "pycocotools": {
             "editable": true,
             "git": "https://github.com/dmechea/cocoapi.git",
-            "ref": "ed842bffd41f6ff38707c4f0968d2cfd91088688",
+            "ref": "b736ab7cc6b2a70f3e5e5bf76483c4468ea30e96",
             "subdirectory": "PythonAPI"
         },
         "pyparsing": {
@@ -576,6 +571,20 @@
                 "sha256:d3f3d7cd9bd4cdc7ebf25fd6c2dfc103dcf4b2834ae9276cc4cf897eb1515f6d",
                 "sha256:e4f479e6aca595acc98347364288cbdfd3c025ca85389380174ea75a43c327b7",
                 "sha256:f587dc03b5f0d1e50cca39b7159c9f21ffdec96273dbf5f7619d48c622cb21f2"
+            ],
+            "index": "pypi",
+            "version": "==1.12.0"
+        },
+        "tensorflow-gpu": {
+            "file": "https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-1.12.0-cp36-cp36m-linux_x86_64.whl",
+            "hashes": [
+                "sha256:12902549817d2f093f3045f7861df84a5936e8f14469d11c5a5622c85455b96c",
+                "sha256:435a9a4a37c1a92f9bc80f577f0328775539c593b9bc9e943712a204ada11db5",
+                "sha256:6e9e6b73cc6dc6b82a8e09f9688a8806f44dbe02c4e92cb9c36efea30a7cd47e",
+                "sha256:bf2c1e660c533102db2a81fad21a26213f4e4ff5ce6b841c0d9adc4ac3c5c6bc",
+                "sha256:ce47aaa4ddf8446c9c9a83d968c2beba93feefaf796f1255ec6e361e4dd0e13a",
+                "sha256:d02f018e46ee0d45a86bd27c5635b936330ab7e180c43029d1b3c4cebc7c2c45",
+                "sha256:da799ad89780c21380fdbb99f3ecf73488dbfdca0715493c6931c2710c710e62"
             ],
             "index": "pypi",
             "version": "==1.12.0"
