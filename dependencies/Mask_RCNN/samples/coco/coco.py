@@ -328,12 +328,15 @@ def build_coco_results(dataset, image_ids, rois, class_ids, scores, masks):
             bbox = np.around(rois[i], 1)
             mask = masks[:, :, i]
 
+            encodedMask = maskUtils.encode(np.asfortranarray(mask))
+            encodedMask['counts'] = encodedMask['counts'].decode('utf8')
+
             result = {
                 "image_id": image_id,
                 "category_id": dataset.get_source_class_id(class_id, "coco"),
-                "bbox": [bbox[1], bbox[0], bbox[3] - bbox[1], bbox[2] - bbox[0]],
-                "score": score,
-                "segmentation": maskUtils.encode(np.asfortranarray(mask))
+                "bbox": [bbox[1].item(), bbox[0].item(), (bbox[3] - bbox[1]).item(), (bbox[2] - bbox[0]).item()],
+                "score": score.item(),
+                "segmentation": encodedMask,
             }
             results.append(result)
     return results
@@ -389,6 +392,8 @@ def evaluate_coco(model, dataset, coco, eval_type="bbox", limit=0, image_ids=Non
     print("Prediction time: {}. Average {}/image".format(
         t_prediction, t_prediction / len(image_ids)))
     print("Total time: ", time.time() - t_start)
+
+    return results
 
 
 ############################################################

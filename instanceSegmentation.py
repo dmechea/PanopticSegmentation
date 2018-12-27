@@ -4,9 +4,12 @@ import numpy as np
 import json
 
 # Root directory of the project
-# MASK_RCNN_ROOT_DIR = os.path.abspath("./dependencies/Mask_RCNN")
-# sys.path.append(MASK_RCNN_ROOT_DIR)
+MASK_RCNN_ROOT_DIR = os.path.abspath("./dependencies/Mask_RCNN")
+sys.path.append(MASK_RCNN_ROOT_DIR)
 #
+
+from dependencies.Mask_RCNN import mrcnn
+
 from mrcnn import utils
 import mrcnn.model as modellib
 from mrcnn.model import log
@@ -43,5 +46,5 @@ valCocoLib = COCO(annotation_file=COCO_ANNOTATIONS_PATH)
 
 cocoFormatResults = coco.evaluate_coco(model, dataset, valCocoLib, eval_type="segm", limit=10)
 
-# with open('data.json', 'w') as outfile:
-    # json.dump(cocoFormatResults, outfile)
+with open('data.json', 'w') as outfile:
+    json.dump(cocoFormatResults, outfile)
