@@ -31,8 +31,8 @@ if not os.path.exists(COCO_MODEL_PATH):
 config = coco.CocoConfig()
 # config.display()
 
-COCO_DATA_DIR = os.path.abspath("./data/coco")
-COCO_ANNOTATIONS_PATH = os.path.abspath("./data/coco/val2017/annotations/instances_val2017.json")
+COCO_DATA_DIR = os.path.abspath("./dataset/coco")
+COCO_ANNOTATIONS_PATH = os.path.abspath("./dataset/coco/val2017/annotations/instances_val2017.json")
 
 dataset = coco.CocoDataset()
 dataset.load_coco(COCO_DATA_DIR, "val", "2017")
