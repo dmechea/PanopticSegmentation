@@ -201,11 +201,13 @@ class CocoStuff164k(_CocoStuff):
 
     def _load_data(self, image_id):
         # Set paths
-        print (image_id)
-        image_path = osp.join(self.root, "images", self.split, image_id + ".jpg")
-        label_path = osp.join(self.root, "annotations", self.split, image_id + ".png")
+        image_path = osp.join(self.root, self.split, image_id + ".jpg")
+        label_path = osp.join(self.root, self.split, "annotations", 'stuff_' + self.split + '_pixelmaps', image_id + ".png")
+
+        print (image_path)
+        print (label_path)
+
         # Load an image
-        print ('DOES THIS GET CALLED?')
         image = cv2.imread(image_path, cv2.IMREAD_COLOR).astype(np.float32)
         label = cv2.imread(label_path, cv2.IMREAD_GRAYSCALE).astype(np.int64)
         return image, label

@@ -58,8 +58,6 @@ def main(config, model_path, cuda, crf):
         flip=False,
     )
 
-    print  (dataset)
-
 
     # DataLoader
     loader = torch.utils.data.DataLoader(

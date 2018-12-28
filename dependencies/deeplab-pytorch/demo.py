@@ -74,6 +74,7 @@ def main(config, image_path, model_path, cuda, crf):
 
     # Inference
     output = model(image)
+
     output = F.interpolate(
         output, size=image.shape[2:], mode="bilinear", align_corners=True
     )
