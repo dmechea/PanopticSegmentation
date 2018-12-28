@@ -193,7 +193,7 @@ class CocoStuff164k(_CocoStuff):
     def _set_files(self):
         # Create data list by parsing the "images" folder
         if self.split in ["train2017", "val2017"]:
-            file_list = sorted(glob(osp.join(self.root, "images", self.split, "*.jpg")))
+            file_list = sorted(glob(osp.join(self.root, self.split, "*.jpg")))
             file_list = [f.split("/")[-1].replace(".jpg", "") for f in file_list]
             self.files = file_list
         else:
@@ -201,9 +201,11 @@ class CocoStuff164k(_CocoStuff):
 
     def _load_data(self, image_id):
         # Set paths
+        print (image_id)
         image_path = osp.join(self.root, "images", self.split, image_id + ".jpg")
         label_path = osp.join(self.root, "annotations", self.split, image_id + ".png")
         # Load an image
+        print ('DOES THIS GET CALLED?')
         image = cv2.imread(image_path, cv2.IMREAD_COLOR).astype(np.float32)
         label = cv2.imread(label_path, cv2.IMREAD_GRAYSCALE).astype(np.int64)
         return image, label

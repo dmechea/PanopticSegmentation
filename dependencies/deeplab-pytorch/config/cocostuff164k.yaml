@@ -1,5 +1,5 @@
 DATASET: cocostuff164k
-ROOT: /media/kazuto1011/Extra/cocostuff/cocostuff-164k
+ROOT: /home/dan/Projects/PanopticSegmentation/dataset/coco
 LABELS: ./data/datasets/cocostuff/labels_2.txt
 IGNORE_LABEL: 255
 

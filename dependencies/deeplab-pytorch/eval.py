@@ -46,6 +46,7 @@ def main(config, model_path, cuda, crf):
     # Configuration
     CONFIG = Dict(yaml.load(open(config)))
 
+
     # Dataset 10k or 164k
     dataset = get_dataset(CONFIG.DATASET)(
         root=CONFIG.ROOT,
@@ -56,6 +57,9 @@ def main(config, model_path, cuda, crf):
         scale=None,
         flip=False,
     )
+
+    print  (dataset)
+
 
     # DataLoader
     loader = torch.utils.data.DataLoader(
