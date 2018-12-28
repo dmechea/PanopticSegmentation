@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "46b44644613abd6acf5d60e1b4873dbc52d5468ef0c94ef2f824abc283c46649"
+            "sha256": "1ebabc1a18cc516f98ab4629b523b2e5ccfb936643135a80ff87965541d5477a"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -601,6 +601,25 @@
             ],
             "markers": "extra == 'array'",
             "version": "==0.9.0"
+        },
+        "torch": {
+            "hashes": [
+                "sha256:012a9c7efce86c7a0ce78cd7945fe7c798049537fc3e85af9f14e8789d13c17f",
+                "sha256:4aadc7124afc431ac6a227a05dc8eff417b6fd8f90fc6c44d514ddfca9a6b474",
+                "sha256:53e12607830ccb1e5fc4076aafe19bdbbc380799793fbaad696714b72859bde6",
+                "sha256:7e73a141bf817c0a914131dec51ea24a2f1946b96749b003af664230a9b95197",
+                "sha256:cb92ac65fcc7685fa6c5920b24101182dcb706d841fc6154ada604f749b615e3",
+                "sha256:cedbc382a0e992a169c73d2c469887c2e5ce0c6fa88b1dabe8f9021e1acb564f",
+                "sha256:ded9e2e59c086127423c23e902e2bec42b3b443a0e458fae76c013f62a7e0748",
+                "sha256:df005dff3e3f12911630e48e0e75d3594a424a317d785b49426c23d0810a4682",
+                "sha256:f4196ce8ba17797f3c2d13c0d53cf461a8e32f6130a08e6e4ce917637afccdc6"
+            ],
+            "index": "pypi",
+            "version": "==1.0.0"
+        },
+        "torchvision": {
+            "git": "https://github.com/pytorch/vision",
+            "ref": "885e3c201a9bc39a70a6bd2744c5ef6843a6c156"
         },
         "werkzeug": {
             "hashes": [
