@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "51960a609b06d379bcee27b33bc1f5bb937472fea07111b4741d0bb40e7a81a5"
+            "sha256": "f63438aafe8e789e0f678ec1cb544898d5abd232053bb59beb585c2ccbb70b45"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -409,10 +409,13 @@
             "version": "==3.6.1"
         },
         "pycocotools": {
-            "editable": true,
-            "git": "https://github.com/dmechea/cocoapi.git",
-            "ref": "b736ab7cc6b2a70f3e5e5bf76483c4468ea30e96",
+            "git": "https://github.com/dmechea/cocostuffapi.git",
+            "ref": "0f84d2b5b5074f014c2d5cc812e3b9b2ab511ae9",
             "subdirectory": "PythonAPI"
+        },
+        "pydensecrf": {
+            "git": "https://github.com/lucasb-eyer/pydensecrf.git",
+            "ref": "4d5343c398d75d7ebae34f51a47769084ba3a613"
         },
         "pyparsing": {
             "hashes": [
