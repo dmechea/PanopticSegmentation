@@ -31,12 +31,7 @@ def createLabels(configObj):
             label = label.rstrip().split("\t")
             classes[int(label[0])] = label[1].split(",")[0]
 
-def loadAnnotation(datasetPath):
-    coco = COCO(datasetPath)
-    print (coco)
-
-
-def makePrediction(config, image_path, model_path, cuda=True, crf=False):
+def loadUpModel(model_path, cuda=True):
     cuda = cuda and torch.cuda.is_available()
     device = torch.device("cuda" if cuda else "cpu")
 
@@ -46,22 +41,15 @@ def makePrediction(config, image_path, model_path, cuda=True, crf=False):
     else:
         print("Running on CPU")
 
-    # Configuration
-    CONFIG = Dict(yaml.load(open(config)))
-
-
-
-    torch.set_grad_enabled(False)
-
     # Model
     model = DeepLabV2_ResNet101_MSC(n_classes=CONFIG.N_CLASSES)
     state_dict = torch.load(model_path, map_location=lambda storage, loc: storage)
     model.load_state_dict(state_dict)
     model.eval()
     model.to(device)
+    return model
 
-    # Image preprocessing
-    image = cv2.imread(image_path, cv2.IMREAD_COLOR).astype(float)
+def preProcessImage(image):
     scale = CONFIG.IMAGE.SIZE.TEST / max(image.shape[:2])
     image = cv2.resize(image, dsize=None, fx=scale, fy=scale)
     image_original = image.astype(np.uint8)
@@ -74,6 +62,24 @@ def makePrediction(config, image_path, model_path, cuda=True, crf=False):
     )
     image = torch.from_numpy(image.transpose(2, 0, 1)).float().unsqueeze(0)
     image = image.to(device)
+
+
+def makePrediction(config, image_path, model, crf=False):
+    # Configuration
+    CONFIG = Dict(yaml.load(open(config)))
+
+    torch.set_grad_enabled(False)
+
+    # Model
+    model = DeepLabV2_ResNet101_MSC(n_classes=CONFIG.N_CLASSES)
+    state_dict = torch.load(model_path, map_location=lambda storage, loc: storage)
+    model.load_state_dict(state_dict)
+    model.eval()
+    model.to(device)
+
+    # Image preprocessing
+    image = cv2.imread(image_path, cv2.IMREAD_COLOR).astype(float)
+    image = preProcessImage(image)
 
     # Inference
     output = model(image)
@@ -90,6 +96,9 @@ def makePrediction(config, image_path, model_path, cuda=True, crf=False):
     cocoResFormat = cocostuff.segmentationToCocoResult(labelmap, '000000002685')
 
     return cocoResFormat
+
+def predictAndCompileImages():
+    pass
 
 
 # thisDir = os.path.abspath('./')
