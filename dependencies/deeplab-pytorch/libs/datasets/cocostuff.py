@@ -212,7 +212,6 @@ class CocoStuff164k(_CocoStuff):
         label = cv2.imread(label_path, cv2.IMREAD_GRAYSCALE).astype(np.int64)
         return image, label
 
-
 def get_parent_class(value, dictionary):
     # Get parent class with COCO-Stuff hierarchy
     for k, v in dictionary.items():

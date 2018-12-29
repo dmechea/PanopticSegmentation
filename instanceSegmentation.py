@@ -8,7 +8,7 @@ MASK_RCNN_ROOT_DIR = os.path.abspath("./dependencies/Mask_RCNN")
 sys.path.append(MASK_RCNN_ROOT_DIR)
 #
 
-from dependencies.Mask_RCNN import mrcnn
+# from dependencies.Mask_RCNN import mrcnn
 
 from mrcnn import utils
 import mrcnn.model as modellib
@@ -44,7 +44,7 @@ model.load_weights(COCO_MODEL_PATH, by_name=True)
 # Need to pass in annotation file
 valCocoLib = COCO(annotation_file=COCO_ANNOTATIONS_PATH)
 
-cocoFormatResults = coco.evaluate_coco(model, dataset, valCocoLib, eval_type="segm", limit=10)
+cocoFormatResults = coco.evaluate_coco(model, dataset, valCocoLib, eval_type="segm", limit=1)
 
 with open('Results/instanceSegmentationResults.json', 'w') as outfile:
     json.dump(cocoFormatResults, outfile)

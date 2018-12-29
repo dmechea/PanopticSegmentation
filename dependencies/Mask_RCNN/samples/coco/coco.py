@@ -339,6 +339,9 @@ def build_coco_results(dataset, image_ids, rois, class_ids, scores, masks):
                 "segmentation": encodedMask,
             }
             results.append(result)
+
+    print (len(results))
+    print (results)
     return results
 
 
