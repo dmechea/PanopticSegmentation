@@ -3,6 +3,7 @@ import os
 import click
 import cv2
 import numpy as np
+import glob
 
 import torch
 import torch.nn.functional as F
@@ -21,8 +22,8 @@ from libs.models import DeepLabV2_ResNet101_MSC
 from libs.utils import dense_crf
 
 # Related to visualization
-def createLabels(configObj):
-    LabelsPath = os.path.join(DEEPLAB_ROOT_DIR, configObj.LABELS)
+def createLabels(config_obj):
+    LabelsPath = os.path.join(DEEPLAB_ROOT_DIR, config_obj.LABELS)
 
     # Label list
     with open(LabelsPath) as f:
@@ -31,7 +32,7 @@ def createLabels(configObj):
             label = label.rstrip().split("\t")
             classes[int(label[0])] = label[1].split(",")[0]
 
-def loadUpModel(model_path, cuda=True):
+def loadModel(model_path, config_obj, cuda=True):
     cuda = cuda and torch.cuda.is_available()
     device = torch.device("cuda" if cuda else "cpu")
 
@@ -42,40 +43,41 @@ def loadUpModel(model_path, cuda=True):
         print("Running on CPU")
 
     # Model
-    model = DeepLabV2_ResNet101_MSC(n_classes=CONFIG.N_CLASSES)
+    model = DeepLabV2_ResNet101_MSC(n_classes=config_obj.N_CLASSES)
     state_dict = torch.load(model_path, map_location=lambda storage, loc: storage)
     model.load_state_dict(state_dict)
     model.eval()
     model.to(device)
     return model
 
-def preProcessImage(image):
-    scale = CONFIG.IMAGE.SIZE.TEST / max(image.shape[:2])
+def preProcessImage(image, config_obj):
+    scale = config_obj.IMAGE.SIZE.TEST / max(image.shape[:2])
     image = cv2.resize(image, dsize=None, fx=scale, fy=scale)
     image_original = image.astype(np.uint8)
     image -= np.array(
         [
-            float(CONFIG.IMAGE.MEAN.B),
-            float(CONFIG.IMAGE.MEAN.G),
-            float(CONFIG.IMAGE.MEAN.R),
+            float(config_obj.IMAGE.MEAN.B),
+            float(config_obj.IMAGE.MEAN.G),
+            float(config_obj.IMAGE.MEAN.R),
         ]
     )
     image = torch.from_numpy(image.transpose(2, 0, 1)).float().unsqueeze(0)
     image = image.to(device)
 
+def extractConfig(config_path):
+    return Dict(yaml.load(open(config_path)))
 
-def makePrediction(config, image_path, model, crf=False):
-    # Configuration
-    CONFIG = Dict(yaml.load(open(config)))
+def extractJpgImagePaths(image_folder):
+    return glob.glob(os.path.join(image_folder, '*.jpg'))
 
+def extractIdFromPath(image_path):
+    image_file = image_path.split('/')[-1]
+    return image_file.split('.')[0]
+
+def makePrediction(config_obj, image_path, model, crf=False):
     torch.set_grad_enabled(False)
 
-    # Model
-    model = DeepLabV2_ResNet101_MSC(n_classes=CONFIG.N_CLASSES)
-    state_dict = torch.load(model_path, map_location=lambda storage, loc: storage)
-    model.load_state_dict(state_dict)
-    model.eval()
-    model.to(device)
+    image_id = extractIdFromPath(image_path)
 
     # Image preprocessing
     image = cv2.imread(image_path, cv2.IMREAD_COLOR).astype(float)
@@ -93,22 +95,28 @@ def makePrediction(config, image_path, model, crf=False):
         output = dense_crf(image_original, output)
     labelmap = np.argmax(output, axis=0)
 
-    cocoResFormat = cocostuff.segmentationToCocoResult(labelmap, '000000002685')
+    cocoResFormat = cocostuff.segmentationToCocoResult(labelmap, image_id)
 
     return cocoResFormat
 
-def predictAndCompileImages():
-    pass
+def runPredictions(model_path, config_path, cuda=True, limit=None):
+    config_obj = extractConfig(config_path)
+    model = loadModel(model_path, config_obj, cuda)
 
 
-# thisDir = os.path.abspath('./')
-#
-# configPath = os.path.join(DEEPLAB_ROOT_DIR, 'config','cocostuff164k.yaml')
+thisDir = os.path.abspath('./')
+
+modelPath = os.path.join(DEEPLAB_ROOT_DIR, 'data', 'models', 'deeplab_resnet101', 'cocostuff164k', 'cocostuff164k_iter100k.pth')
+configPath = os.path.join(DEEPLAB_ROOT_DIR, 'config','cocostuff164k.yaml')
 # imagePath = os.path.join(DEEPLAB_ROOT_DIR, '000000002685.jpg')
-# modelPath = os.path.join(DEEPLAB_ROOT_DIR, 'data', 'models', 'deeplab_resnet101', 'cocostuff164k', 'cocostuff164k_iter100k.pth')
-#
-# x = makePrediction(configPath, imagePath, modelPath)
-#
+imageFolder = os.path.join(thisDir, 'dataset', 'coco', 'val2017')
+
+firstImagePath = extractJpgImagePaths(imageFolder)[0]
+print (firstImagePath)
+
+# runPredictions(modelPath, configPath)
+
+
 # print (x)
 
 # if __name__ == "__main__":
