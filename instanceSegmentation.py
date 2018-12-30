@@ -44,7 +44,7 @@ model.load_weights(COCO_MODEL_PATH, by_name=True)
 # Need to pass in annotation file
 valCocoLib = COCO(annotation_file=COCO_ANNOTATIONS_PATH)
 
-cocoFormatResults = coco.evaluate_coco(model, dataset, valCocoLib, eval_type="segm", limit=1)
+cocoFormatResults = coco.evaluate_coco(model, dataset, valCocoLib, eval_type="segm", limit=5)
 
 with open('Results/instanceSegmentationResults.json', 'w') as outfile:
     json.dump(cocoFormatResults, outfile)

@@ -146,7 +146,7 @@ modelPath = os.path.join(DEEPLAB_ROOT_DIR, 'data', 'models', 'deeplab_resnet101'
 configPath = os.path.join(DEEPLAB_ROOT_DIR, 'config','cocostuff164k.yaml')
 imageFolder = os.path.join(thisDir, 'dataset', 'coco', 'val2017')
 
-runPredictions(modelPath, configPath, imageFolder, limit=1)
+runPredictions(modelPath, configPath, imageFolder, limit=5)
 
 # if __name__ == "__main__":
 #     main()
