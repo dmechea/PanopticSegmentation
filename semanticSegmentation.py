@@ -106,6 +106,18 @@ def makePrediction(config_obj, image_path, model, cuda=True, crf=False):
 
     return cocoResFormat
 
+# I cant create a JSON file as the segmentation is stores as bytes, need to decode
+def decodeSegmentationResults(result_list):
+    decoded_results = []
+    for result in result_list:
+        result_copy = Dict(result)
+        encodedCounts = result_copy.segmentation.counts
+        result_copy.segmentation.counts = encodedCounts.decode('utf8')
+
+        decoded_results.append(result_copy)
+
+    return decoded_results
+
 def runPredictions(model_path, config_path, image_folder, cuda=True, limit=None):
     config_obj = extractConfig(config_path)
     model = loadModel(model_path, config_obj, cuda)
@@ -118,11 +130,14 @@ def runPredictions(model_path, config_path, image_folder, cuda=True, limit=None)
 
     for index in tqdm(range(image_range)):
         image_path = image_path_list[index]
-        print (index, image_path)
         image_results = makePrediction(config_obj, image_path, model)
         total_results.extend(image_results)
 
+    decoded_results = decodeSegmentationResults(total_results)
 
+    with open('Results/semanticSegmentationResults.json', 'w') as outfile:
+        json.dump(decoded_results, outfile)
+        print ('JSON file created in Results folder')
 
 
 thisDir = os.path.abspath('./')
@@ -131,10 +146,7 @@ modelPath = os.path.join(DEEPLAB_ROOT_DIR, 'data', 'models', 'deeplab_resnet101'
 configPath = os.path.join(DEEPLAB_ROOT_DIR, 'config','cocostuff164k.yaml')
 imageFolder = os.path.join(thisDir, 'dataset', 'coco', 'val2017')
 
-runPredictions(modelPath, configPath, imageFolder, limit=5)
-
-
-# print (x)
+runPredictions(modelPath, configPath, imageFolder, limit=1)
 
 # if __name__ == "__main__":
 #     main()
