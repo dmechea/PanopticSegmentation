@@ -3,7 +3,10 @@ import os
 import click
 import cv2
 import numpy as np
-import glob
+from glob import glob
+from tqdm import tqdm
+
+import json
 
 import torch
 import torch.nn.functional as F
@@ -50,7 +53,10 @@ def loadModel(model_path, config_obj, cuda=True):
     model.to(device)
     return model
 
-def preProcessImage(image, config_obj):
+def preProcessImage(image, config_obj, cuda=True):
+    cuda = cuda and torch.cuda.is_available()
+    device = torch.device("cuda" if cuda else "cpu")
+
     scale = config_obj.IMAGE.SIZE.TEST / max(image.shape[:2])
     image = cv2.resize(image, dsize=None, fx=scale, fy=scale)
     image_original = image.astype(np.uint8)
@@ -63,25 +69,26 @@ def preProcessImage(image, config_obj):
     )
     image = torch.from_numpy(image.transpose(2, 0, 1)).float().unsqueeze(0)
     image = image.to(device)
+    return image
 
 def extractConfig(config_path):
     return Dict(yaml.load(open(config_path)))
 
 def extractJpgImagePaths(image_folder):
-    return glob.glob(os.path.join(image_folder, '*.jpg'))
+    return glob(os.path.join(image_folder, '*.jpg'))
 
 def extractIdFromPath(image_path):
     image_file = image_path.split('/')[-1]
     return image_file.split('.')[0]
 
-def makePrediction(config_obj, image_path, model, crf=False):
+def makePrediction(config_obj, image_path, model, cuda=True, crf=False):
     torch.set_grad_enabled(False)
 
     image_id = extractIdFromPath(image_path)
 
     # Image preprocessing
     image = cv2.imread(image_path, cv2.IMREAD_COLOR).astype(float)
-    image = preProcessImage(image)
+    image = preProcessImage(image, config_obj, cuda)
 
     # Inference
     output = model(image)
@@ -99,22 +106,32 @@ def makePrediction(config_obj, image_path, model, crf=False):
 
     return cocoResFormat
 
-def runPredictions(model_path, config_path, cuda=True, limit=None):
+def runPredictions(model_path, config_path, image_folder, cuda=True, limit=None):
     config_obj = extractConfig(config_path)
     model = loadModel(model_path, config_obj, cuda)
+
+    image_path_list = sorted(extractJpgImagePaths(imageFolder))
+
+    image_range = limit if limit is not None else len(image_path_list)
+
+    total_results = []
+
+    for index in tqdm(range(image_range)):
+        image_path = image_path_list[index]
+        print (index, image_path)
+        image_results = makePrediction(config_obj, image_path, model)
+        total_results.extend(image_results)
+
+
 
 
 thisDir = os.path.abspath('./')
 
 modelPath = os.path.join(DEEPLAB_ROOT_DIR, 'data', 'models', 'deeplab_resnet101', 'cocostuff164k', 'cocostuff164k_iter100k.pth')
 configPath = os.path.join(DEEPLAB_ROOT_DIR, 'config','cocostuff164k.yaml')
-# imagePath = os.path.join(DEEPLAB_ROOT_DIR, '000000002685.jpg')
 imageFolder = os.path.join(thisDir, 'dataset', 'coco', 'val2017')
 
-firstImagePath = extractJpgImagePaths(imageFolder)[0]
-print (firstImagePath)
-
-# runPredictions(modelPath, configPath)
+runPredictions(modelPath, configPath, imageFolder, limit=5)
 
 
 # print (x)
