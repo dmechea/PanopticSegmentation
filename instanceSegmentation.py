@@ -6,9 +6,9 @@ import json
 # Root directory of the project
 MASK_RCNN_ROOT_DIR = os.path.abspath("./dependencies/Mask_RCNN")
 sys.path.append(MASK_RCNN_ROOT_DIR)
-#
 
 # from dependencies.Mask_RCNN import mrcnn
+from operator import itemgetter
 
 from mrcnn import utils
 import mrcnn.model as modellib

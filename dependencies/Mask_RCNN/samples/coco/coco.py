@@ -133,6 +133,9 @@ class CocoDataset(utils.Dataset):
         for i in class_ids:
             self.add_class("coco", i, coco.loadCats(i)[0]["name"])
 
+        # Add sorter for images
+        image_ids = sorted(image_ids)
+
         # Add images
         for i in image_ids:
             self.add_image(
