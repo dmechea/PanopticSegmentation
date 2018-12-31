@@ -23,7 +23,7 @@ images_json_path = './Results/imagesJsonFile.json'
 
 panoptic_coco_categories = './dependencies/panopticapi/panoptic_coco_categories.json'
 
-panoptic_segmentation_file = './Results/PanopticSegmentationResults.json'
+panoptic_segmentation_file = './Results/panopticSegmentationResults.json'
 
 # panoptic_GT_json_path = './dataset/coco/annotations/panoptic_val2017.json'
 #
@@ -35,8 +35,6 @@ panoptic_segmentation_file = './Results/PanopticSegmentationResults.json'
 #     json.dump(panoptic_gt_dict, outfile)
 
 # print (list(panoptic_gt_dict.keys()))
-
-
 
 combine_predictions(
     semseg_json_file = semantic_seg_path,

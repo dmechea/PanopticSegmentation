@@ -153,7 +153,7 @@ def combine_predictions(semseg_json_file, instseg_json_file, images_json_file,
         if inst['score'] < confidence_thr:
             continue
         inst_by_image[inst['image_id']].append(inst)
-    for img_id in inst_by_image.keys():
+    for img_id in list(inst_by_image.keys()):
         inst_by_image[img_id] = sorted(inst_by_image[img_id], key=lambda el: -el['score'])
 
     sem_by_image = defaultdict(list)
@@ -193,7 +193,9 @@ def combine_predictions(semseg_json_file, instseg_json_file, images_json_file,
     with open(images_json_file, 'r') as f:
         coco_d = json.load(f)
     coco_d['annotations'] = panoptic_json
-    coco_d['categories'] = categories.values()
+    coco_d['categories'] = list(categories.values())
+    # print (coco_d['categories'])
+    # print (type(coco_d['categories']))
     with open(panoptic_json_file, 'w') as f:
         json.dump(coco_d, f)
 
