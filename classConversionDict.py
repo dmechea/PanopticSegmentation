@@ -5,6 +5,7 @@
 # }
 
 import json
+from utils import loadJson
 
 path_to_panoptic_classes = './dependencies/panopticapi/'
 
