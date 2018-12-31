@@ -64,16 +64,18 @@ def preProcessImage(image, config_obj, cuda=True):
     cuda = cuda and torch.cuda.is_available()
     device = torch.device("cuda" if cuda else "cpu")
 
-    scale = config_obj.IMAGE.SIZE.TEST / max(image.shape[:2])
-    image = cv2.resize(image, dsize=None, fx=scale, fy=scale)
-    image_original = image.astype(np.uint8)
-    image -= np.array(
-        [
-            float(config_obj.IMAGE.MEAN.B),
-            float(config_obj.IMAGE.MEAN.G),
-            float(config_obj.IMAGE.MEAN.R),
-        ]
-    )
+    # This is causing issues as it is not same shape as inst segm.
+
+    # scale = config_obj.IMAGE.SIZE.TEST / max(image.shape[:2])
+    # image = cv2.resize(image, dsize=None, fx=scale, fy=scale)
+    # image_original = image.astype(np.uint8)
+    # image -= np.array(
+    #     [
+    #         float(config_obj.IMAGE.MEAN.B),
+    #         float(config_obj.IMAGE.MEAN.G),
+    #         float(config_obj.IMAGE.MEAN.R),
+    #     ]
+    # )
     image = torch.from_numpy(image.transpose(2, 0, 1)).float().unsqueeze(0)
     image = image.to(device)
     return image

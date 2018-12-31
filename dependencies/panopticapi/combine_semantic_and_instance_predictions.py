@@ -52,6 +52,8 @@ def combine_to_panoptic(proc_id, img_ids, img_id2img, inst_by_image,
 
         pan_segm_id = np.zeros((img['height'],
                                 img['width']), dtype=np.uint32)
+
+
         used = None
         annotation = {}
         annotation['image_id'] = img_id
@@ -59,6 +61,8 @@ def combine_to_panoptic(proc_id, img_ids, img_id2img, inst_by_image,
 
         segments_info = []
         for ann in inst_by_image[img_id]:
+            ann['segmentation']['counts'] = ann['segmentation']['counts'].encode()
+
             area = COCOmask.area(ann['segmentation'])
             if area == 0:
                 continue
@@ -84,6 +88,9 @@ def combine_to_panoptic(proc_id, img_ids, img_id2img, inst_by_image,
             segments_info.append(panoptic_ann)
 
         for ann in sem_by_image[img_id]:
+
+            ann['segmentation']['counts'] = ann['segmentation']['counts'].encode()
+
             mask = COCOmask.decode(ann['segmentation']) == 1
             mask_left = np.logical_and(pan_segm_id == 0, mask)
             if mask_left.sum() < stuff_area_limit:
@@ -174,6 +181,16 @@ def combine_predictions(semseg_json_file, instseg_json_file, images_json_file,
     panoptic_json = []
     for p in processes:
         panoptic_json.extend(p.get())
+
+    for item in panoptic_json:
+        item['image_id'] = item['image_id'].item()
+        image_id = item['image_id']
+        file_name = item['file_name']
+        segments_info = item['segments_info']
+        for segment in segments_info:
+            segment['id'] = segment['id'] if isinstance(segment['id'], int) else int(segment['id'])
+            print ('id', type(segment['id']))
+            print ('category_id', type(segment['category_id']))
 
     with open(images_json_file, 'r') as f:
         coco_d = json.load(f)
