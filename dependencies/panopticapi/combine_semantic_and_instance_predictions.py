@@ -189,8 +189,6 @@ def combine_predictions(semseg_json_file, instseg_json_file, images_json_file,
         segments_info = item['segments_info']
         for segment in segments_info:
             segment['id'] = segment['id'] if isinstance(segment['id'], int) else int(segment['id'])
-            print ('id', type(segment['id']))
-            print ('category_id', type(segment['category_id']))
 
     with open(images_json_file, 'r') as f:
         coco_d = json.load(f)

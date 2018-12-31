@@ -2,6 +2,9 @@
 
 import os
 import sys
+import json
+
+from helpers import loadJson
 
 # Root directory of the project
 PANOPTIC_API = os.path.abspath("./dependencies/panopticapi")
@@ -15,12 +18,25 @@ instance_seg_path = './Results/instanceSegmentationResults.json'
 semantic_seg_path = './Results/semanticSegmentationResults.json'
 # semanticSegResults = loadJson(semantic_seg_path)
 
-images_json_path = './dataset/coco/val2017/annotations/instances_val2017.json'
+images_json_path = './Results/imagesJsonFile.json'
 # images_json_file = loadJson(images_json_path)
 
 panoptic_coco_categories = './dependencies/panopticapi/panoptic_coco_categories.json'
 
 panoptic_segmentation_file = './Results/PanopticSegmentationResults.json'
+
+# panoptic_GT_json_path = './dataset/coco/annotations/panoptic_val2017.json'
+#
+# panoptic_gt_dict = loadJson(panoptic_GT_json_path)
+#
+# panoptic_gt_dict.pop('annotations')
+# panoptic_gt_dict.pop('categories')
+# with open('Results/imagesJsonFile.json', 'w') as outfile:
+#     json.dump(panoptic_gt_dict, outfile)
+
+# print (list(panoptic_gt_dict.keys()))
+
+
 
 combine_predictions(
     semseg_json_file = semantic_seg_path,
