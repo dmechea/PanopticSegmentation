@@ -13,7 +13,7 @@ def panopticToIndexPosition(panoptic_category_json):
     resulting_dict = {}
     for index, classItem in enumerate(panoptic_category_json):
         id = classItem['id']
-        resulting_dict[id] = index
+        resulting_dict[str(id)] = index
     return resulting_dict
 
 def makePanopticIdIndex(panoptic_category_list):
@@ -23,10 +23,6 @@ def makePanopticIdIndex(panoptic_category_list):
         id = category['id']
         panopticClassDict[str(id)] = name
     return panopticClassDict
-
-stuff_category_dict = loadStuffTextLabels(path_to_stuff_classes)
-panoptic_category_list = loadJson(path_to_panoptic_classes)
-
 
 def getAllMergedClasses(panoptic_category_dict):
     mergedClasses = {}
@@ -55,18 +51,30 @@ def convertStuffIDToPanopticIndex(id, panoptic_category_index, stuff_category_in
             return str(mergedDictResult)
         return mergedDictResult
 
+# Stuff id will be 1 less than expected, then run above function and use pan dict to convert to idx
+def stuffIdToPanopticIndex(
+    id,
+    panoptic_category_index,
+    stuff_category_index,
+    merged_dict,
+    pan_id_index
+):
 
-def stuffIdToPanopticIndex(stuff_id_dict, panoptic_index_dict):
-    pass
+    stuff_id_matched = int(id) + 1
+    pan_id = convertStuffIDToPanopticIndex(
+        stuff_id_matched,
+        panoptic_category_index,
+        stuff_category_index,
+        merged_dict
+    )
 
-pan_idx = makePanopticIdIndex(panoptic_category_list)
+    if pan_id is not None:
+        return pan_id_index[pan_id]
+    else:
+        return None
 
-merged_dict = getAllMergedClasses(panoptic_category_list)
-
-# print (pan_idx)
-for i in stuff_category_dict:
-    id = convertStuffIDToPanopticIndex(i, pan_idx, stuff_category_dict, merged_dict)
-
-# convertStuffIDToPanopticIndex()
-
-# panopticToIndexPosition(panoptic_category_json)
+stuff_category_dict = loadStuffTextLabels(path_to_stuff_classes)
+panoptic_category_list = loadJson(path_to_panoptic_classes)
+panopticClassIdDict = makePanopticIdIndex(panoptic_category_list)
+panopticIdToIndexDict = panopticToIndexPosition(panoptic_category_list)
+panopticMergedClassesDict = getAllMergedClasses(panoptic_category_list)
