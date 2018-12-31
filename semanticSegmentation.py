@@ -7,7 +7,13 @@ from glob import glob
 from tqdm import tqdm
 import json
 
-from classConversionDict import conversionDictionary
+from classConversionDict import convertStuffIdToPanopticId
+
+print (convertStuffIdToPanopticId(97))
+print (convertStuffIdToPanopticId(97))
+print (convertStuffIdToPanopticId(97))
+print (convertStuffIdToPanopticId(97))
+print (convertStuffIdToPanopticId(97))
 
 import torch
 import torch.nn.functional as F
@@ -124,10 +130,12 @@ def convertClassesForPanoptic(result_list):
     for result in result_list:
         result_copy = Dict(result)
         categoryClass = result_copy.category_id
-        if str(categoryClass) in conversionDictionary:
-            result_copy.category_id = conversionDictionary[str(categoryClass)]
-
-        converted_results.append(result_copy)
+        panopticIndex = convertStuffIdToPanopticId(categoryClass)
+        if panopticIndex is not None:
+            result_copy.category_id = panopticIndex
+            converted_results.append(result_copy)
+        else:
+            print ('UH OH THERE IS NO PANOPTIC INDEX, Filtering for now')
 
     return converted_results
 
@@ -148,6 +156,8 @@ def runPredictions(model_path, config_path, image_folder, cuda=True, limit=None)
 
     decoded_results = decodeSegmentationResults(total_results)
     class_conversion = convertClassesForPanoptic(decoded_results)
+
+    print (len(class_conversion))
 
     with open('Results/semanticSegmentationResults.json', 'w') as outfile:
         json.dump(class_conversion, outfile)

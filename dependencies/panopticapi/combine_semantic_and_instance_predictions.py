@@ -150,17 +150,17 @@ def combine_predictions(semseg_json_file, instseg_json_file, images_json_file,
         inst_by_image[img_id] = sorted(inst_by_image[img_id], key=lambda el: -el['score'])
 
     sem_by_image = defaultdict(list)
-    # print (categories)
-    print (sem_results)
     for sem in sem_results:
         print (sem)
-        # print (sem['category_id'])
+        print (sem['category_id'])
         if categories[sem['category_id']]['isthing'] == 1:
             continue
         sem_by_image[sem['image_id']].append(sem)
 
-    imgs_ids_all = img_id2img.keys()
+    imgs_ids_all = list(img_id2img.keys())
     cpu_num = multiprocessing.cpu_count()
+    # print (imgs_ids_all, cpu_num)
+    # print (imgs_ids_all.shape)
     img_ids_split = np.array_split(imgs_ids_all, cpu_num)
     print("Number of cores: {}, images per core: {}".format(cpu_num, len(img_ids_split[0])))
     workers = multiprocessing.Pool(processes=cpu_num)
