@@ -5,8 +5,9 @@ import cv2
 import numpy as np
 from glob import glob
 from tqdm import tqdm
-
 import json
+
+from classConversionDict import conversionDictionary
 
 import torch
 import torch.nn.functional as F
@@ -118,6 +119,18 @@ def decodeSegmentationResults(result_list):
 
     return decoded_results
 
+def convertClassesForPanoptic(result_list):
+    converted_results = []
+    for result in result_list:
+        result_copy = Dict(result)
+        categoryClass = result_copy.category_id
+        if str(categoryClass) in conversionDictionary:
+            result_copy.category_id = conversionDictionary[str(categoryClass)]
+
+        converted_results.append(result_copy)
+
+    return converted_results
+
 def runPredictions(model_path, config_path, image_folder, cuda=True, limit=None):
     config_obj = extractConfig(config_path)
     model = loadModel(model_path, config_obj, cuda)
@@ -134,9 +147,10 @@ def runPredictions(model_path, config_path, image_folder, cuda=True, limit=None)
         total_results.extend(image_results)
 
     decoded_results = decodeSegmentationResults(total_results)
+    class_conversion = convertClassesForPanoptic(decoded_results)
 
     with open('Results/semanticSegmentationResults.json', 'w') as outfile:
-        json.dump(decoded_results, outfile)
+        json.dump(class_conversion, outfile)
         print ('JSON file created in Results folder')
 
 

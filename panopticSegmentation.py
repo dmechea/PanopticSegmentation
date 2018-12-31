@@ -2,17 +2,12 @@
 
 import os
 import sys
-import json
 
 # Root directory of the project
 PANOPTIC_API = os.path.abspath("./dependencies/panopticapi")
 sys.path.append(PANOPTIC_API)
 
 from combine_semantic_and_instance_predictions import combine_predictions
-
-def loadJson(relative_file_location):
-    with open(relative_file_location) as json_data:
-        return json.load(json_data)
 
 instance_seg_path = './Results/instanceSegmentationResults.json'
 # instanceSegResults = loadJson(instance_seg_path)

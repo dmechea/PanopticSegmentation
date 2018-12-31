@@ -150,11 +150,11 @@ def combine_predictions(semseg_json_file, instseg_json_file, images_json_file,
         inst_by_image[img_id] = sorted(inst_by_image[img_id], key=lambda el: -el['score'])
 
     sem_by_image = defaultdict(list)
-    print (categories)
-
+    # print (categories)
+    print (sem_results)
     for sem in sem_results:
         print (sem)
-        print (sem['category_id'])
+        # print (sem['category_id'])
         if categories[sem['category_id']]['isthing'] == 1:
             continue
         sem_by_image[sem['image_id']].append(sem)
