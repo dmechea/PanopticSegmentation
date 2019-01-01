@@ -9,12 +9,6 @@ import json
 
 from classConversionDict import convertStuffIdToPanopticId
 
-print (convertStuffIdToPanopticId(97))
-print (convertStuffIdToPanopticId(97))
-print (convertStuffIdToPanopticId(97))
-print (convertStuffIdToPanopticId(97))
-print (convertStuffIdToPanopticId(97))
-
 import torch
 import torch.nn.functional as F
 
