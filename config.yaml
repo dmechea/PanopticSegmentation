@@ -1,0 +1,12 @@
+mrcnn_path: ./dependencies/Mask_RCNN
+deeplab_path: ./dependencies/deeplab-pytorch
+
+mrcnn_weights: weights/mask_rcnn_coco.h5
+
+coco_dir: ./dataset/coco
+
+coco_ann_path: ./dataset/coco/val2017/annotations/instances_val2017.json
+
+data_set: val2017
+
+image_limit: 5

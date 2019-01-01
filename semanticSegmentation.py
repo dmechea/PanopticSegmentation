@@ -19,7 +19,10 @@ from pycocotools import cocostuffhelper as cocostuff
 
 from pycocotools.coco import COCO
 
-DEEPLAB_ROOT_DIR = os.path.abspath("./dependencies/deeplab-pytorch")
+mainConfig = Dict(yaml.load(open("./config.yaml")))
+
+DEEPLAB_ROOT_DIR = os.path.abspath(mainConfig.deeplab_path)
+
 sys.path.append(DEEPLAB_ROOT_DIR)
 
 from libs.models import DeepLabV2_ResNet101_MSC
@@ -166,7 +169,9 @@ modelPath = os.path.join(DEEPLAB_ROOT_DIR, 'data', 'models', 'deeplab_resnet101'
 configPath = os.path.join(DEEPLAB_ROOT_DIR, 'config','cocostuff164k.yaml')
 imageFolder = os.path.join(thisDir, 'dataset', 'coco', 'val2017')
 
-runPredictions(modelPath, configPath, imageFolder, limit=5)
+lim = int(mainConfig.image_limit) if mainConfig.image_limit != 'None' else None
+
+runPredictions(modelPath, configPath, imageFolder, limit=lim)
 
 # if __name__ == "__main__":
 #     main()
