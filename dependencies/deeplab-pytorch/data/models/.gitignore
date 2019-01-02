@@ -2,3 +2,4 @@
 *.pth.tar
 *.caffemodel
 *.npy
+*.json
