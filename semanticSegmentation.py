@@ -21,6 +21,8 @@ from pycocotools.coco import COCO
 
 mainConfig = Dict(yaml.load(open("./config.yaml")))
 
+makeResultsDirectory(mainConfig.results_folder)
+
 DEEPLAB_ROOT_DIR = os.path.abspath(mainConfig.deeplab_path)
 
 sys.path.append(DEEPLAB_ROOT_DIR)
@@ -158,7 +160,8 @@ def runPredictions(model_path, config_path, image_folder, cuda=True, limit=None)
 
     print (len(class_conversion))
 
-    with open('Results/semanticSegmentationResults.json', 'w') as outfile:
+    with open('{}/{}.json'.format(mainConfig.result_folder,
+            mainConfig.semantic_result_json), 'w') as outfile:
         json.dump(class_conversion, outfile)
         print ('JSON file created in Results folder')
 

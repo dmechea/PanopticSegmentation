@@ -79,7 +79,8 @@ def runPredictions(model, dataset, limit=None):
 
 
 
-    with open('{}/{}.json'.format(mainConfig.results_folder, mainConfig.instance_result_json), 'w') as outfile:
+    with open('{}/{}.json'.format(mainConfig.results_folder,
+            mainConfig.instance_result_json), 'w') as outfile:
         json.dump(instance_segmentation_results, outfile)
 
     return instance_segmentation_results

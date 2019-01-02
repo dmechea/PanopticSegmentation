@@ -20,4 +20,5 @@ def makeResultsDirectory(dir_name):
     stringify_dir=str(dir_name)
     # Make Directory to story results if it doesnt exist
     if not os.path.exists(stringify_dir):
+        print ("Folder doesn't exist, making now... : {}".format(stringify_dir))
         os.makedirs(stringify_dir)
