@@ -3,7 +3,7 @@ import sys
 import json
 import yaml
 from addict import Dict
-from helpers import loadJson
+from helpers import loadJson, makeResultsDirectory
 
 mainConfig = Dict(yaml.load(open("./config.yaml")))
 
@@ -13,18 +13,19 @@ sys.path.append(PANOPTIC_API)
 
 from combine_semantic_and_instance_predictions import combine_predictions
 
-instance_seg_path = './Results/instanceSegmentationResults.json'
+instance_seg_path = './{}/{}.json'.format(mainConfig.results_folder, mainConfig.instance_result_json)
 # instanceSegResults = loadJson(instance_seg_path)
 
-semantic_seg_path = './Results/semanticSegmentationResults.json'
+semantic_seg_path = './{}/{}.json'.format(mainConfig.result_folder, mainConfig.semantic_result_json)
 # semanticSegResults = loadJson(semantic_seg_path)
 
-images_json_path = './Results/imagesJsonFile.json'
+images_json_path = './{}/{}.json'.format(mainConfig.result_folder, mainConfig.panoptic_temp)
 # images_json_file = loadJson(images_json_path)
 
-panoptic_coco_categories = './dependencies/panopticapi/panoptic_coco_categories.json'
+panoptic_coco_categories = '{}/{}.json'.format(mainConfig.panopticapi_path, mainConfig.panoptic_cat_path)
 
-panoptic_segmentation_file = './Results/panopticSegmentationResults.json'
+# Out file
+panoptic_segmentation_file = './{}/{}.json'.format(mainConfig.panoptic_results_folder, mainConfig.submission_name)
 
 
 combine_predictions(

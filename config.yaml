@@ -1,6 +1,7 @@
 mrcnn_path: ./dependencies/Mask_RCNN
 deeplab_path: ./dependencies/deeplab-pytorch
 panopticapi_path: ./dependencies/panopticapi
+panoptic_cat_path: panoptic_coco_categories
 
 mrcnn_weights: weights/mask_rcnn_coco.h5
 
@@ -18,5 +19,6 @@ results_folder: ModelResults
 
 instance_result_json: instance_segmentation_results
 semantic_result_json: semantic_segmentation_results
-
+panoptic_temp: images_json_file
 panoptic_results_folder: PanopticResults
+submission_name: panoptic_val2017_MrcnnDeepLab2_results
