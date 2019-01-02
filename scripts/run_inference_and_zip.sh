@@ -5,15 +5,13 @@ NC='\033[0m'
 
 ZIP_NAME='panoptic_val2017_MrcnnDeepLab2_results'
 
+# If dataset doesnt exist then download
+if [ ! -d "dataset" ]; then
+  echo -e "${LIGHTCYAN}Dataset not present, proceeding to download dataset... ${NC}"
+  ./scripts/download_dataset.sh
+fi
 
 echo -e "${LIGHTCYAN}Running Inference For Panoptic Analysis ${NC}"
-
-# echo "Checking that validation data is ready and set up......"
-#
-# echo "NEED DATA BEFORE ANYTHING"
-#
-# echo "Running instance segmentation on data set"
-
 sleep 0.5
 
 echo -e "${LIGHTCYAN}Running instance segmentation, using MASK_RCNN ${NC}"
