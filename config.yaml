@@ -1,5 +1,6 @@
 mrcnn_path: ./dependencies/Mask_RCNN
 deeplab_path: ./dependencies/deeplab-pytorch
+panopticapi_path: ./dependencies/panopticapi
 
 mrcnn_weights: weights/mask_rcnn_coco.h5
 
@@ -12,3 +13,5 @@ data_set: val2017
 image_limit: 5
 
 panoptic_gt_json_path: ./dataset/coco/val2017/annotations/panoptic_val2017.json
+
+results_folder: Results

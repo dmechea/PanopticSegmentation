@@ -35,5 +35,8 @@ python createPanopticResultsImageFile.py
 
 echo -e "${LIGHTCYAN}----Done ${NC}"
 
+sleep 0.5
 
 echo -e "${LIGHTCYAN}Combining Segmentations to produce panoptic results ${NC}"
+
+python panopticSegmentation.py

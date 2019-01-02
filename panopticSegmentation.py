@@ -1,13 +1,14 @@
-# from dependencies.panopticapi.combine_semantic_and_instance_predictions import combine_predictions
-
 import os
 import sys
 import json
-
+import yaml
+from addict import Dict
 from helpers import loadJson
 
+mainConfig = Dict(yaml.load(open("./config.yaml")))
+
 # Root directory of the project
-PANOPTIC_API = os.path.abspath("./dependencies/panopticapi")
+PANOPTIC_API = os.path.abspath(mainConfig.panopticapi_path)
 sys.path.append(PANOPTIC_API)
 
 from combine_semantic_and_instance_predictions import combine_predictions
