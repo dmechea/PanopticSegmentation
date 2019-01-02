@@ -25,16 +25,6 @@ panoptic_coco_categories = './dependencies/panopticapi/panoptic_coco_categories.
 
 panoptic_segmentation_file = './Results/panopticSegmentationResults.json'
 
-# panoptic_GT_json_path = './dataset/coco/annotations/panoptic_val2017.json'
-#
-# panoptic_gt_dict = loadJson(panoptic_GT_json_path)
-#
-# panoptic_gt_dict.pop('annotations')
-# panoptic_gt_dict.pop('categories')
-# with open('Results/imagesJsonFile.json', 'w') as outfile:
-#     json.dump(panoptic_gt_dict, outfile)
-
-# print (list(panoptic_gt_dict.keys()))
 
 combine_predictions(
     semseg_json_file = semantic_seg_path,
