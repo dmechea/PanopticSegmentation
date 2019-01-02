@@ -7,6 +7,7 @@ from glob import glob
 from tqdm import tqdm
 import json
 
+from helpers import makeResultsDirectory
 from classConversionDict import convertStuffIdToPanopticId
 
 import torch
@@ -160,7 +161,7 @@ def runPredictions(model_path, config_path, image_folder, cuda=True, limit=None)
 
     print (len(class_conversion))
 
-    with open('{}/{}.json'.format(mainConfig.result_folder,
+    with open('{}/{}.json'.format(mainConfig.results_folder,
             mainConfig.semantic_result_json), 'w') as outfile:
         json.dump(class_conversion, outfile)
         print ('JSON file created in Results folder')

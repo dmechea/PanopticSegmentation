@@ -7,6 +7,8 @@ from helpers import loadJson, makeResultsDirectory
 
 mainConfig = Dict(yaml.load(open("./config.yaml")))
 
+makeResultsDirectory(mainConfig.panoptic_results_folder)
+
 # Root directory of the project
 PANOPTIC_API = os.path.abspath(mainConfig.panopticapi_path)
 sys.path.append(PANOPTIC_API)
@@ -16,10 +18,10 @@ from combine_semantic_and_instance_predictions import combine_predictions
 instance_seg_path = './{}/{}.json'.format(mainConfig.results_folder, mainConfig.instance_result_json)
 # instanceSegResults = loadJson(instance_seg_path)
 
-semantic_seg_path = './{}/{}.json'.format(mainConfig.result_folder, mainConfig.semantic_result_json)
+semantic_seg_path = './{}/{}.json'.format(mainConfig.results_folder, mainConfig.semantic_result_json)
 # semanticSegResults = loadJson(semantic_seg_path)
 
-images_json_path = './{}/{}.json'.format(mainConfig.result_folder, mainConfig.panoptic_temp)
+images_json_path = './{}/{}.json'.format(mainConfig.results_folder, mainConfig.panoptic_temp)
 # images_json_file = loadJson(images_json_path)
 
 panoptic_coco_categories = '{}/{}.json'.format(mainConfig.panopticapi_path, mainConfig.panoptic_cat_path)
