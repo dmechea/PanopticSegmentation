@@ -1,3 +1,4 @@
+import os
 import json
 
 def loadJson(relative_file_location):
@@ -14,3 +15,9 @@ def loadStuffTextLabels(relative_file_location):
         id, name = line.strip().split('\t')
         stuffLabels[addOneToString(id)] = name
     return stuffLabels
+
+def makeResultsDirectory(dir_name):
+    stringify_dir=str(dir_name)
+    # Make Directory to story results if it doesnt exist
+    if not os.path.exists(stringify_dir):
+        os.makedirs(stringify_dir)

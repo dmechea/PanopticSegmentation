@@ -7,7 +7,11 @@ from addict import Dict
 from tqdm import tqdm
 import cv2
 
+from helpers import makeResultsDirectory
+
 mainConfig = Dict(yaml.load(open("./config.yaml")))
+
+makeResultsDirectory(mainConfig.results_folder)
 
 # Root directory of the project
 MASK_RCNN_ROOT_DIR = os.path.abspath(mainConfig.mrcnn_path)
@@ -73,7 +77,9 @@ def runPredictions(model, dataset, limit=None):
                                         prediction['masks'].astype(np.uint8))
         instance_segmentation_results.extend(coco_results)
 
-    with open('Results/instanceSegmentationResults.json', 'w') as outfile:
+
+
+    with open('{}/{}.json'.format(mainConfig.results_folder, mainConfig.instance_result_json), 'w') as outfile:
         json.dump(instance_segmentation_results, outfile)
 
     return instance_segmentation_results
