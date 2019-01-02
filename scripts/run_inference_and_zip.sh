@@ -3,6 +3,9 @@
 LIGHTCYAN='\033[1;36m'
 NC='\033[0m'
 
+ZIP_NAME='panoptic_val2017_MrcnnDeepLab2_results'
+
+
 echo -e "${LIGHTCYAN}Running Inference For Panoptic Analysis ${NC}"
 
 # echo "Checking that validation data is ready and set up......"
@@ -40,3 +43,12 @@ sleep 0.5
 echo -e "${LIGHTCYAN}Combining Segmentations to produce panoptic results ${NC}"
 
 python panopticSegmentation.py
+
+echo -e "${LIGHTCYAN}----Done ${NC}"
+
+sleep 0.5
+
+echo -e "${LIGHTCYAN}Creating zip file for competition submission.... ${NC}"
+
+echo -e "${LIGHTCYAN}Zipfile Name = ${ZIP_NAME}${NC}"
+cd PanopticResults && zip -r "../${ZIP_NAME}.zip" *
