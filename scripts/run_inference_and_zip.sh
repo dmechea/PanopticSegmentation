@@ -5,7 +5,6 @@ NC='\033[0m'
 
 ZIP_NAME='panoptic_val2017_MrcnnDeepLab2_results'
 
-
 echo -e "${LIGHTCYAN}Running Inference For Panoptic Analysis ${NC}"
 sleep 0.5
 
