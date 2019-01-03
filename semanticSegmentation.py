@@ -175,6 +175,3 @@ imageFolder = os.path.join(thisDir, 'dataset', 'coco', 'val2017')
 lim = int(mainConfig.image_limit) if mainConfig.image_limit != 'None' else None
 
 runPredictions(modelPath, configPath, imageFolder, limit=lim)
-
-# if __name__ == "__main__":
-#     main()
