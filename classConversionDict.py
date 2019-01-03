@@ -42,6 +42,37 @@ panopticClassIdDict = makePanopticIdIndex(panoptic_category_list)
 panopticIdToIndexDict = panopticToIndexPosition(panoptic_category_list)
 panopticMergedClassesDict = getAllMergedClasses(panoptic_category_list)
 
+ids = list(panopticClassIdDict.keys())
+
+def checkForMatch(stuffName):
+    for id in ids:
+        if stuffName in panopticClassIdDict[id]:
+            print (id, panopticClassIdDict[id])
+
+checkForMatch('blender')
+
+# clothes, 105 is unnacounted for. What category can i slot it into? :/
+manualDictConv = {
+    94: 184, # Branch => tree-merged
+    96: 197, # Building => building-other-merged
+    97: 193, # Bush => grass merged (could go to tree-merged, tough call)
+    98: 188, # cabinet => cabinet merged
+    99: 185, # cage => fence merged
+    101: 190, # carpet => floor-other-merged (could be 200?)
+    102: 186, # ceiling-other to ceiling merged
+    103: 186, # ceiling merged
+    104: 189, # cloth => table-merged
+    106: 187, # clouds => sky-merged
+    110: 189, # desk-stuff => table-merged
+    111: 194, # dirt => dirt-merged
+    113: 185, # fence => fence-merged
+    114: 190, # floor-marble => floor-other-merged
+    115: 190, # floor-other => floor-other-merged
+    116: 190, # floor-stone => floor-other-merged
+    117: 190, # floor-tile => floor-other-merged
+    120: 187, # fog => sky-other-merged (not really sky but where else? water merged?)
+    121: 196, # food-other => food-other-merged
+}
 
 # I want this to return the correct class Number
 def convertStuffIdToPanopticId(id):
