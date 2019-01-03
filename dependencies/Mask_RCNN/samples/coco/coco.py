@@ -113,28 +113,38 @@ class CocoDataset(utils.Dataset):
             subset = "val"
         image_dir = "{}/{}{}".format(dataset_dir, subset, year)
 
-        # Load all classes or a subset?
-        if not class_ids:
-            # All classes
-            class_ids = sorted(coco.getCatIds())
+        image_ids = []
 
-        # All images or a subset?
-        if class_ids:
-            image_ids = []
-            for id in class_ids:
-                image_ids.extend(list(coco.getImgIds(catIds=[id])))
-            # Remove duplicates
-            image_ids = list(set(image_ids))
-        else:
-            # All images
-            image_ids = list(coco.imgs.keys())
+        image_infos = coco.dataset['images']
+        for image_info in image_infos:
+            image_ids.append(image_info['id'])
 
-        # Add classes
-        for i in class_ids:
-            self.add_class("coco", i, coco.loadCats(i)[0]["name"])
+
+        # this is interfering and causing issues with image sizing
+        # # Load all classes or a subset?
+        # if not class_ids:
+        #     # All classes
+        #     class_ids = sorted(coco.getCatIds())
+        #
+        # # All images or a subset?
+        # if class_ids:
+        #     image_ids = []
+        #     for id in class_ids:
+        #         image_ids.extend(list(coco.getImgIds(catIds=[id])))
+        #     # Remove duplicates
+        #     image_ids = list(set(image_ids))
+        # else:
+        #     # All images
+        #     image_ids = list(coco.imgs.keys())
+        #
+        # # Add classes
+        # for i in class_ids:
+        #     self.add_class("coco", i, coco.loadCats(i)[0]["name"])
 
         # Add sorter for images
         image_ids = sorted(image_ids)
+
+        print (image_ids)
 
         # Add images
         for i in image_ids:
