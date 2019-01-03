@@ -122,10 +122,10 @@ class CocoDataset(utils.Dataset):
 
         # this is interfering and causing issues with image sizing
         # # Load all classes or a subset?
-        # if not class_ids:
-        #     # All classes
-        #     class_ids = sorted(coco.getCatIds())
-        #
+        if not class_ids:
+            # All classes
+            class_ids = sorted(coco.getCatIds())
+
         # # All images or a subset?
         # if class_ids:
         #     image_ids = []
@@ -137,14 +137,12 @@ class CocoDataset(utils.Dataset):
         #     # All images
         #     image_ids = list(coco.imgs.keys())
         #
-        # # Add classes
-        # for i in class_ids:
-        #     self.add_class("coco", i, coco.loadCats(i)[0]["name"])
+        # Add classes
+        for i in class_ids:
+            self.add_class("coco", i, coco.loadCats(i)[0]["name"])
 
         # Add sorter for images
         image_ids = sorted(image_ids)
-
-        print (image_ids)
 
         # Add images
         for i in image_ids:
@@ -353,8 +351,6 @@ def build_coco_results(dataset, image_ids, rois, class_ids, scores, masks):
             }
             results.append(result)
 
-    # print (len(results))
-    # print (results)
     return results
 
 
