@@ -14,8 +14,8 @@ mv train2_iter_20000.caffemodel data/models/deeplab_resnet101/voc12
 
 # Remove *.prototxt
 rm *.prototxt
-
-echo ===============================================================================================
-echo "Next, try running script below:"
-echo -e "\033[32m python convert.py --dataset coco_init \033[00m"
-echo ===============================================================================================
+#
+# echo ===============================================================================================
+# echo "Next, try running script below:"
+# echo -e "\033[32m python convert.py --dataset coco_init \033[00m"
+# echo ===============================================================================================

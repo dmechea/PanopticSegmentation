@@ -5,11 +5,6 @@ NC='\033[0m'
 
 ZIP_NAME='panoptic_val2017_MrcnnDeepLab2_results'
 
-# If dataset doesnt exist then download
-if [ ! -d "dataset" ]; then
-  echo -e "${LIGHTCYAN}Dataset not present, proceeding to download dataset... ${NC}"
-  ./scripts/download_dataset.sh
-fi
 
 echo -e "${LIGHTCYAN}Running Inference For Panoptic Analysis ${NC}"
 sleep 0.5
