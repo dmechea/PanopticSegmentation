@@ -72,6 +72,38 @@ manualDictConv = {
     117: 190, # floor-tile => floor-other-merged
     120: 187, # fog => sky-other-merged (not really sky but where else? water merged?)
     121: 196, # food-other => food-other-merged
+    123: 189, # furniture-other to table-merged (may be untrue other furniture is not necessarily on a table)
+    124: 193, # grass => grass-merged
+    126: 190, # ground-other to floor-other-merged
+    127: 192, # hill => mountain-merged
+    129: 184, # leaves => tree-merged
+    131: 200, # matt => rug merged
+    132: 198, # metal => rock-merged (not entirely sure about this one)
+    134: 198, # moss => rock-merged
+    135: 192, # mountain to mountain-merged
+    136: 194, # mud => dirt merged
+    137: 195, # napkin => paper-merged
+    139: 195, # paper => paper-merged
+    140: 191, # pavement => pavement-merged
+    142: 184, # plant-other => tree-merged
+    143: 196, # plastic => food-other-merged (not happy with this one but i suppose plastif for food containers?)
+    146: 185, # railing => fence-merged
+    150: 198, # rock => rock-merged
+    152: 200, # rug => rug-merged
+    153: 196, # salad => food-other-merged
+    157: 187, # sky-other => sky-other-merged
+    158: 197, # skyscraper => building-other-merged
+    160: 199, # solid-other to wall-other-merged (solid-other is an extremely vague class)
+    162: 198, # stone => rock-merged
+    163: 193, # straw => grass merged (assuming they are talking about straw hay)
+    164: 199, # structural-other => wall-other-merged
+    165: 189, # table => table-merged
+    167: 195, # textile-other => paper-other-merge
+    172: 199, # wall-concrete => wall-other-merged
+    173: 199, # wall-other => wall-other-merged
+    174: 199, # wall-panel => wall-other-merged
+    179: 178, # waterdrops => water-other
+    182: 184, # wood => tree-merged
 }
 
 # I want this to return the correct class Number
