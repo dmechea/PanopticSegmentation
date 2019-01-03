@@ -16,6 +16,7 @@ image_limit: 5
 panoptic_gt_json_path: ./dataset/coco/val2017/annotations/panoptic_val2017.json
 
 results_folder: ModelResults
+weights_folder: weights
 
 instance_result_json: instance_segmentation_results
 semantic_result_json: semantic_segmentation_results

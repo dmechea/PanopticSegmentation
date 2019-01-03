@@ -20,8 +20,6 @@ echo -e "${LIGHTCYAN}Heres the contents: ${NC}"
 echo -e " "
 echo -e "${WHITE}- Download coco val2017 with annotations.${NC}"
 echo -e " "
-echo -e "${WHITE}- Unpack and install dataset${NC}"
-echo -e " "
 echo -e "${WHITE}- Setup MASK_RCNN${NC}"
 echo -e " "
 echo -e "${WHITE}- Setup DeepLabV2${NC}"
@@ -44,3 +42,38 @@ if [ ! -d "dataset" ]; then
   echo -e "${LIGHTCYAN}Proceeding to download dataset... ${NC}"
   ./scripts/download_dataset.sh
 fi
+
+echo -e "${LIGHTCYAN}---Done! ${NC}"
+echo -e "${WHITE}=========================================================${NC}"
+
+sleep 1
+
+echo -e "${LIGHTCYAN}Setup MASK_RCNN.. ${NC}"
+echo -e "${WHITE}=========================================================${NC}"
+mkdir weights
+
+sleep 2
+
+echo -e "${LIGHTCYAN}Please be paitent, this may take some time.... ${NC}"
+echo -e "${WHITE}=========================================================${NC}"
+sleep 0.5
+echo -e "${LIGHTCYAN}Working.... ${NC}"
+echo -e "${WHITE}=========================================================${NC}"
+
+python installInstanceSegWeights.py
+
+echo -e "${LIGHTCYAN}---Done! ${NC}"
+echo -e "${WHITE}=========================================================${NC}"
+
+sleep 1
+
+echo -e "${LIGHTCYAN}Setup DeepLabV2${NC}"
+echo -e "${WHITE}=========================================================${NC}"
+
+./scripts/deeplab_setup.sh
+
+echo -e "${LIGHTCYAN}---Done! ${NC}"
+echo -e "${WHITE}=========================================================${NC}"
+
+echo -e "${LIGHTCYAN}Ready to perform panoptic segmentation${NC}"
+echo -e "${WHITE}=========================================================${NC}"
