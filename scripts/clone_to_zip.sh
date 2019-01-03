@@ -1,5 +1,10 @@
 #!/bin/bash
 
+LIGHTCYAN='\033[1;36m'
+NC='\033[0m'
+DGREY='\033[1;30m'
+WHITE='\033[1;37m'
+
 echo -e "${WHITE}=========================================================${NC}"
 echo -e "${LIGHTCYAN}Hello! I see you have cloned the panopticSegmentation repo. ${NC}"
 echo -e "${WHITE}=========================================================${NC}"
@@ -38,12 +43,7 @@ echo -e "${WHITE}=========================================================${NC}"
 echo -e "${LIGHTCYAN}--Done! ${NC}"
 echo -e "${WHITE}=========================================================${NC}"
 
-echo -e "${LIGHTCYAN}Entering virtual environment.... ${NC}"
-echo -e "${WHITE}=========================================================${NC}"
-
 sleep 2
-
-pipenv shell
 
 ./scripts/raw_repo_setup.sh
 ./scripts/run_inference_and_zip.sh
