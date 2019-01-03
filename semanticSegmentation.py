@@ -137,8 +137,7 @@ def convertClassesForPanoptic(result_list):
             result_copy.category_id = panopticIndex
             converted_results.append(result_copy)
         else:
-            print ('UH OH THERE IS NO PANOPTIC INDEX, Filtering for now')
-
+            print ('No index, skipping')
     return converted_results
 
 def runPredictions(model_path, config_path, image_folder, cuda=True, limit=None):

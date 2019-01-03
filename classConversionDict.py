@@ -42,15 +42,7 @@ panopticClassIdDict = makePanopticIdIndex(panoptic_category_list)
 panopticIdToIndexDict = panopticToIndexPosition(panoptic_category_list)
 panopticMergedClassesDict = getAllMergedClasses(panoptic_category_list)
 
-ids = list(panopticClassIdDict.keys())
-
-def checkForMatch(stuffName):
-    for id in ids:
-        if stuffName in panopticClassIdDict[id]:
-            print (id, panopticClassIdDict[id])
-
-checkForMatch('blender')
-
+# this list makes most of this code redundant, it was better to do this process by hand but i will slot it in with the code anyway
 # clothes, 105 is unnacounted for. What category can i slot it into? :/
 manualDictConv = {
     94: 184, # Branch => tree-merged
@@ -121,7 +113,8 @@ def convertStuffIdToPanopticId(id):
         mergedDictResult = panopticMergedClassesDict.get(stuff_id_name)
         if mergedDictResult is not None:
             return int(mergedDictResult)
-        return mergedDictResult
+        else:
+            return manualDictConv.get(id)
 
 # Stuff id will be 1 less than expected,
 # then run above function and use pan dict to convert to idx
