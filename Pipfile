@@ -23,7 +23,7 @@ pycocotools = {subdirectory = "PythonAPI", git = "https://github.com/dmechea/coc
 [dev-packages]
 
 [requires]
-python_version = "3.6"
+python_version = "3"
 
 [scripts]
 full = "pipenv shell ./scripts/clone_to_zip.sh"
