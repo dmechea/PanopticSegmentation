@@ -7,7 +7,7 @@ from addict import Dict
 from tqdm import tqdm
 import cv2
 
-from helpers import makeResultsDirectory
+from helpers import makeResultsDirectory, loadJson
 
 mainConfig = Dict(yaml.load(open("./config.yaml")))
 
@@ -53,13 +53,36 @@ model.load_weights(COCO_MODEL_PATH, by_name=True)
 
 lim = int(mainConfig.image_limit) if mainConfig.image_limit != 'None' else None
 
+
 def runPredictions(model, dataset, limit=None):
 
-    instance_segmentation_results = []
+    # Checkpoint Loader
+    try:
+        instance_segmentation_results = loadJson('./{}/{}.json'.format(mainConfig.results_folder, mainConfig.instance_result_json))
+        upToIndex = loadJson('./{}/instanceIdx.json'.format(mainConfig.results_folder))['index']
+    except FileNotFoundError:
+        instance_segmentation_results = []
+        upToIndex = 0
+        print ('No file on record, starting from the beginning')
 
     image_range = limit if limit is not None else len(dataset.image_info)
 
     for index in tqdm(range(image_range)):
+
+        # Skip until where we left off
+        if index < upToIndex:
+            print ('skipping => Image index=', index, 'Progress Index=', upToIndex)
+            continue
+
+        # Checkpoint System
+        if index % 50 == 0:
+            with open('{}/instanceIdx.json'.format(mainConfig.results_folder), 'w') as outfile:
+                json.dump({'index': index}, outfile)
+
+            with open('{}/{}.json'.format(mainConfig.results_folder,
+                    mainConfig.instance_result_json), 'w') as outfile:
+                json.dump(instance_segmentation_results, outfile)
+
         current_image_info = dataset.image_info[index]
 
         image_path = current_image_info['path']
@@ -76,12 +99,6 @@ def runPredictions(model, dataset, limit=None):
                                         prediction['scores'],
                                         prediction['masks'].astype(np.uint8))
         instance_segmentation_results.extend(coco_results)
-
-
-
-    with open('{}/{}.json'.format(mainConfig.results_folder,
-            mainConfig.instance_result_json), 'w') as outfile:
-        json.dump(instance_segmentation_results, outfile)
 
     return instance_segmentation_results
 
