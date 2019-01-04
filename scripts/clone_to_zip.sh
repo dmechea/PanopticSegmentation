@@ -11,7 +11,7 @@ echo -e "${WHITE}=========================================================${NC}"
 
 sleep 3
 
-echo -e "${LIGHTCYAN}Before we can do any inference, we need set up the repo. ${NC}"
+echo -e "${LIGHTCYAN}Before we can do any inference, we need set everything up. ${NC}"
 echo -e "${WHITE}=========================================================${NC}"
 
 sleep 3
