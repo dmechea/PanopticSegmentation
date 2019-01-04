@@ -100,6 +100,11 @@ def runPredictions(model, dataset, limit=None):
                                         prediction['masks'].astype(np.uint8))
         instance_segmentation_results.extend(coco_results)
 
+    # Final dump of JSON
+    with open('{}/{}.json'.format(mainConfig.results_folder,
+            mainConfig.instance_result_json), 'w') as outfile:
+        json.dump(instance_segmentation_results, outfile)
+
     return instance_segmentation_results
 
 runPredictions(model, dataset, lim)
