@@ -109,3 +109,5 @@ dataset/
 Results/
 ModelResults/
 PanopticResults/
+
+*.zip
