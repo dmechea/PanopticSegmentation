@@ -8,42 +8,123 @@ LRED='\033[1;31m'
 PS3='Please enter your choice: '
 options=("Full installation and predict on dataset" "Install Dataset and models only" "Run Predictions only" "Download pre-made predictions and local evaluation (quickest)" "Quit")
 
-echo -e "${WHITE}=========================================================${NC}"
-echo -e "${LIGHTCYAN}Hello! I see you have cloned the panopticSegmentation repo. ${NC}"
-echo -e "${WHITE}=========================================================${NC}"
+
+echo ""
+echo ""
+echo ""
+echo ""
+echo ""
+echo ""
+echo ""
+echo -e "${LIGHTCYAN}Hello!${NC}"
+echo ""
+echo ""
+echo ""
+echo ""
+echo ""
+echo ""
+echo ""
 
 sleep 2
 
-echo -e "${LIGHTCYAN}Before continuing, please ensure you have ${LRED}python 3.6${LIGHTCYAN}.....${NC}"
-sleep 2
-echo -e "${LIGHTCYAN}..... and have run ${LRED}pipenv install${LIGHTCYAN} to install all dependencies.${NC}"
-sleep 2
-echo -e "${LIGHTCYAN}.....${NC}"
-sleep 0.2
-echo -e "${LIGHTCYAN}.....${NC}"
-sleep 0.2
-echo -e "${LIGHTCYAN}..... oh! And dont forget to run ${LRED}pipenv shell${LIGHTCYAN} to run this program from a virtual env${NC}"
-sleep 2
-echo -e "${LIGHTCYAN}If you have done that, then please select from the following options: ${NC}"
-echo -e "${WHITE}=========================================================${NC}"
-
+echo -e "Welcome to my Panoptic Segmentation Challenge Repository."
+echo ""
+echo ""
+echo ""
+echo ""
+echo ""
+echo ""
+echo ""
+sleep 3
+echo -e "Before continuing, please ensure you have ${LRED}python 3.6${NC}....."
+echo ""
+echo ""
+echo ""
+echo ""
+echo ""
+echo ""
+echo ""
+sleep 3
+echo -e "..... and have run ${LRED}pipenv install${NC} to install all dependencies."
+echo ""
+echo ""
+echo ""
+echo ""
+echo ""
+echo ""
+echo ""
+sleep 3
+echo -e "And dont forget to run ${LRED}pipenv shell${NC} to run this program from a virtual env"
+echo ""
+echo ""
+echo ""
+echo ""
+echo ""
+echo ""
+echo ""
+sleep 3
+echo -e "If you have done that, then please select from the following options:"
+echo ""
+echo ""
+echo ""
+echo ""
+echo ""
+echo ""
+echo ""
 sleep 1
+echo -e "${WHITE}=========================================================${NC}"
+
 
 select opt in "${options[@]}"
 do
     case $opt in
         "Full installation and predict on dataset")
-            echo "you chose choice 1"
+            echo -e "You Selected ${LIGHTCYAN}Full installation and predict on dataset${NC}"
+            sleep 2
+            echo ""
+            echo ""
+            echo -e "${WHITE}Working.....${NC}"
+            echo -e ""
+            echo -e ""
+            sleep 1
+            ./scripts/clone_to_zip.sh
             break
             ;;
         "Install Dataset and models only")
-            echo "you chose choice 2"
+            echo -e "You Selected ${LIGHTCYAN}Install Dataset and models only${NC}"
+            sleep 2
+            echo ""
+            echo ""
+            echo -e "${WHITE}Working.....${NC}"
+            echo -e ""
+            echo -e ""
+            sleep 1
+            ./scripts/raw_repo_setup.sh
+            break
             ;;
         "Run Predictions only")
-            echo "you chose choice $REPLY which is $opt"
+            echo -e "You Selected ${LIGHTCYAN}Install Dataset and models only${NC}"
+            sleep 2
+            echo ""
+            echo ""
+            echo -e "${WHITE}Working.....${NC}"
+            echo ""
+            echo ""
+            sleep 1
+            ./scripts/run_inference_and_zip.sh
+            break
             ;;
         "Download pre-made predictions and local evaluation (quickest)")
-            echo "Well done"
+            echo -e "You Selected ${LIGHTCYAN}Download pre-made predictions and local evaluation${NC}"
+            sleep 2
+            echo ""
+            echo ""
+            echo -e "${WHITE}Working.....${NC}"
+            echo ""
+            echo ""
+            sleep 1
+            ./scripts/download_and_eval_results.sh
+            break
             ;;
         "Quit")
             break
