@@ -19,6 +19,7 @@ click = "*"
 addict = "*"
 pydensecrf = {git = "https://github.com/lucasb-eyer/pydensecrf.git"}
 pycocotools = {subdirectory = "PythonAPI", git = "https://github.com/dmechea/cocostuffapi.git"}
+pyyaml = "*"
 
 [dev-packages]
 

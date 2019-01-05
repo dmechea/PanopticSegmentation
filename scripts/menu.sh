@@ -63,7 +63,7 @@ echo ""
 echo ""
 echo ""
 sleep 3
-echo -e "If you have done that, then please select from the following options:"
+echo -e "If you have done that, then please select a number from the following options and then press ENTER:"
 echo ""
 echo ""
 echo ""
