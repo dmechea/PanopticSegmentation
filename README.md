@@ -18,3 +18,17 @@ cd PanopticSegmentation
 ```
 pipenv install
 ```
+
+## Usage
+
+From inside the root directory:
+
+1. Enter Virtual Env:
+
+`pipenv shell`
+
+2. Run the command:
+
+`pipenv run start`
+
+3. Follow the instructions in the menu to run either inference or evaluation of the dataset.
