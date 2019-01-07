@@ -3,18 +3,19 @@ This Repository combines the MASK_RCNN algorithm for instance segmentation and D
 
 ## In order to use, it's require to setup the repository first:
 
+### Prerequisites
 Make sure you have `Python 3.6` and `pip3 9.0.1` and `pipenv` (other pip versions may work, however they are untested)
+**This also requires CUDA 9 and cuDNN to be installed on system.**
 
+### Installation:
 1. Clone repository
 
 2. Enter Root directory:
-
 ```
 cd PanopticSegmentation
 ```
 
 3. Install dependencies:
-
 ```
 pipenv install
 ```
