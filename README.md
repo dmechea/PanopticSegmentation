@@ -8,7 +8,7 @@ Make sure you have `Python 3.6` and `pip3 9.0.1` and `pipenv` (other pip version
 **This also requires CUDA 9 and cuDNN to be installed on system.**
 
 ### Installation:
-1. Clone repository
+1. `git clone` to clone the repository
 
 2. Enter Root directory:
 ```
