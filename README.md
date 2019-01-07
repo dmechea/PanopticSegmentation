@@ -1,6 +1,8 @@
 # PanopticSegmentation
 This Repository combines the MASK_RCNN algorithm for instance segmentation and DeepLabV2 Algorithm for semantic segmentation in order to produce predictions for the Panoptic Segmentation Challenge.
 
+![Alt text](./static/PQResults.png "PQ Results")
+
 ## In order to use, it's require to setup the repository first:
 
 ### Prerequisites
